@@ -619,7 +619,9 @@ contract VoltMaker is Ownable {
         // X1 - X5: OK
         (uint256 reserve0, uint256 reserve1, ) = pair.getReserves();
         
-        validationOracle.isWithinBounds(pair);
+        if (address(validationOracle) != address(0)) {
+            validationOracle.isWithinBounds(pair);
+        }
 
         uint256 amountInWithFee = amountIn.mul(997);
         if (fromToken == pair.token0()) {
